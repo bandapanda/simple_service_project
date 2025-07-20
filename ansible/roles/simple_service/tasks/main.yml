@@ -1,0 +1,31 @@
+- name: Copy simple_service app to VM
+  copy:
+    src: "{{ playbook_dir }}/../simple_service/"
+    dest: /home/vagrant/simple_service/
+    owner: vagrant
+    group: vagrant
+    mode: 0755
+
+- name: Install python3.10-venv package
+  apt:
+    name: python3.10-venv
+    state: present
+    update_cache: yes
+
+- name: Create virtual environment
+  command: python3 -m venv /home/vagrant/simple_service/venv
+  args:
+    creates: /home/vagrant/simple_service/venv/bin/activate
+
+- name: Install required packages from requirements.txt
+  pip:
+    requirements: /home/vagrant/simple_service/requirements.txt
+    virtualenv: /home/vagrant/simple_service/venv
+
+- name: Start simple_service with uvicorn
+  shell: |
+    source /home/vagrant/simple_service/venv/bin/activate
+    nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+  args:
+    chdir: /home/vagrant/simple_service
+    executable: /bin/bash

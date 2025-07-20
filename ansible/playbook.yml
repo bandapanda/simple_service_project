@@ -1,0 +1,5 @@
+- name: Deploy simple_service on a Linux system
+  hosts: vagrant_vm
+  become: yes
+  roles:
+    - simple_service
