@@ -22,6 +22,13 @@ pipeline {
             }
         }
 
+        stage('Debug') {
+            steps {
+                sh 'pwd'
+                sh 'ls -l'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 dir('simple_service_project') {
