@@ -6,12 +6,11 @@ build:
 
 run-hello:
 	docker run \
-	-v $(PWD)/vagrant_project/.vagrant/machines/default/virtualbox/private_key:/root/.ssh/id_rsa:ro \
-	-v ~/.ssh/known_hosts:/root/.ssh/known_hosts:ro \
 	-v "$(PWD)/output":/app/output \
 	$(IMAGE_NAME):$(VERSION) --mode hello
 
 run-random:
 	docker run --rm $(IMAGE_NAME):$(VERSION)  \
-	--mode random \
-	--remote-user vagrant
+	-v $(PWD)/vagrant_project/.vagrant/machines/default/virtualbox/private_key:/root/.ssh/id_rsa:ro \
+	-v ~/.ssh/known_hosts:/root/.ssh/known_hosts:ro \
+	--mode random
