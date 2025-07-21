@@ -31,23 +31,19 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                dir('simple_service_project') {
                     echo "IMAGE_NAME: ${IMAGE_NAME}"
                     echo "VERSION: ${VERSION}"
                     sh 'make build VERSION=${VERSION}'
-                }
             }
         }
 
         stage('Run Client') {
             steps {
-                dir('simple_service_project') {
-                    script {
-                        if (params.MODE == 'hello') {
-                            sh 'make run-hello VERSION=${VERSION}'
-                        } else {
-                            sh 'make run-random VERSION=${VERSION}'
-                        }
+                script {
+                    if (params.MODE == 'hello') {
+                        sh 'make run-hello VERSION=${VERSION}'
+                    } else {
+                        sh 'make run-random VERSION=${VERSION}'
                     }
                 }
             }
