@@ -22,13 +22,6 @@ pipeline {
             }
         }
 
-        stage('Debug') {
-            steps {
-                sh 'pwd'
-                sh 'ls -l'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                     echo "IMAGE_NAME: ${IMAGE_NAME}"
