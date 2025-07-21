@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Clone repo') {
             steps {
-                git url: 'git@github.com:bandapanda/simple_service_project.git', credentialsId: 'jenkins-git'
+                git url: 'git@github.com:bandapanda/simple_service_project.git',
+                credentialsId: 'jenkins-git',
+                branch: 'main'
             }
         }
     }
